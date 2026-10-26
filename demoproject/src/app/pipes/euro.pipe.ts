@@ -6,7 +6,7 @@ export class EuroPipe implements PipeTransform {
     // GIGO
     if (value === undefined || value === null) return value;
 
-    let str = value.toString();
+    let str = value.toFixed(2).toString();
     let [wholes, decimals] = str.split('.');
 
     return `€ ${wholes},${decimals.padEnd(2, '0')}`;
