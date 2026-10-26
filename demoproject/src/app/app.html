@@ -1,12 +1,18 @@
 <h3 class="text-3xl font-bold">testje</h3>
 
-naam: {{ naam }}
+naam / naamSignal: {{ naam }} / {{ naamSignal() }}
+<button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
+
+getal / dubbel getal: {{getal()}} / {{dubbeleGetal()}}
+<button (click)="getal.update(value => value + 5)">verander</button>
+
+<hr>
+<hr>
 
 nu: {{nu | date: 'd MMMM y'}}
 prijs: {{prijs | euro}}
 
 
-<button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
 
 @if (!frameworks) {
   <p>Thinking... Regurgitating...</p>
