@@ -1,0 +1,32 @@
+<h3 class="text-3xl font-bold">testje</h3>
+
+naam: {{ naam }}
+
+<button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
+
+@if (!frameworks) {
+  <p>Thinking... Regurgitating...</p>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>Framework</th>
+        <th>Rating</th>
+        <th>Logo</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (framework of frameworks; track framework.name) {
+        <tr
+          [class.bg-orange-500]="framework.rating < 5"
+          [class.border-4]="framework.rating < 5"
+          (mouseover)="framework.rating = framework.rating - 2"
+        >
+          <td>{{ framework.name }}</td>
+          <td>{{ framework.rating }}</td>
+          <td><img src="{{ framework.logoUrl }}" class="max-w-20" /></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
