@@ -2,6 +2,10 @@
 
 naam: {{ naam }}
 
+nu: {{nu | date: 'd MMMM y'}}
+prijs: {{prijs | euro}}
+
+
 <button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
 
 @if (!frameworks) {
@@ -22,7 +26,7 @@ naam: {{ naam }}
           [class.border-4]="framework.rating < 5"
           (mouseover)="framework.rating = framework.rating - 2"
         >
-          <td>{{ framework.name }}</td>
+          <td>{{ framework.name | uppercase }}</td>
           <td>{{ framework.rating }}</td>
           <td><img src="{{ framework.logoUrl }}" class="max-w-20" /></td>
         </tr>

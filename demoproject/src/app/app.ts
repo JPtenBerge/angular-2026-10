@@ -1,14 +1,19 @@
+import { CurrencyPipe, DatePipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { EuroPipe } from './pipes/euro.pipe';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, UpperCasePipe, LowerCasePipe, DatePipe, CurrencyPipe, EuroPipe],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
 export class App {
   naam = 'JP';
+  nu = new Date('2026-10-26');
+  prijs = 12345678.9;
+  // nuImproved = Temporal.PlainDate.from('');
 
   frameworks = [
     { id: 4, name: 'Svelte', rating: 9.5, logoUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F1b%2FSvelte_Logo.svg%2F1280px-Svelte_Logo.svg.png&f=1&nofb=1&ipt=ad20d0c31bd8cdb5f363043859681163256767df93d12826839509afaeb6db6f&ipo=images' },
