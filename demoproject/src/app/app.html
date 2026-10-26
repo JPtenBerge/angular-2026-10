@@ -2,17 +2,68 @@
 
 naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 <button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
-
-getal / dubbel getal: {{getal()}} / {{dubbeleGetal()}}
-<button (click)="getal.update(value => value + 5)">verander</button>
-
+<hr />
+<div class="flex gap-5">
+  <form [formGroup]="addFrameworkForm" (submit)="addFrameworkReactive()">
+    <h2>Reactive</h2>
+    <ol>
+      <li>
+        <label for="reactive-input-name">Naam:</label>
+        <input id="reactive-input-name" formControlName="name" />
+      </li>
+      <li>
+        <label for="reactive-input-rating">Rating:</label>
+        <input id="reactive-input-rating" type="number" formControlName="rating" />
+      </li>
+      <li>
+        <label for="reactive-input-logo-url">Logo URL:</label>
+        <input id="reactive-input-logo-url" formControlName="logoUrl" />
+      </li>
+      <li><pre>{{addFrameworkForm.value | json}}</pre></li>
+      <li>valid: {{addFrameworkForm.valid}}</li>
+      <li><button>Voeg toe</button></li>
+    </ol>
+  </form>
+  <form (submit)="addFrameworkTemplate(templateForm)" #templateForm="ngForm">
+    <h2>Template-driven</h2>
+    <ol>
+      <li>
+        <label for="template-input-name">Naam:</label>
+        <input id="template-input-name" [(ngModel)]="newFramework.name" name="name" required pattern="^[a-zA-Z0-9]+$" />
+      </li>
+      <li>
+        <label for="template-input-rating">Rating:</label>
+        <input id="template-input-rating" type="number" [(ngModel)]="newFramework.rating" name="rating"/>
+      </li>
+      <li>
+        <label for="template-input-logo-url">Logo URL:</label>
+        <input id="template-input-logo-url" [(ngModel)]="newFramework.logoUrl" name="logoUrl" />
+      </li>
+      <li><pre>{{newFramework | json}}</pre></li>
+      <li>valid: {{templateForm.valid}}</li>
+      <li><button>Voeg toe</button></li>
+    </ol>
+  </form>
+  <form (submit)="addFrameworkSignal()">
+    <h2>Signal-based</h2>
+    <ol>
+      <li>
+        <label for="reactive-input-name">Naam:</label>
+        <input id="reactive-input-name" [formField]="addFrameworkDef.name" />
+      </li>
+      <li>
+        <label for="reactive-input-rating">Rating:</label>
+        <input id="reactive-input-rating" type="number" [formField]="addFrameworkDef.rating" />
+      </li>
+      <li>
+        <label for="reactive-input-logo-url">Logo URL:</label>
+        <input id="reactive-input-logo-url" [formField]="addFrameworkDef.logoUrl" />
+      </li>
+      <li><button>Voeg toe</button></li>
+    </ol>
+  </form>
+</div>
 <hr>
-<hr>
-
-nu: {{nu | date: 'd MMMM y'}}
-prijs: {{prijs | euro}}
-
-
 
 @if (!frameworks) {
   <p>Thinking... Regurgitating...</p>
