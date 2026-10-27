@@ -5,65 +5,92 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 <hr />
 <div class="flex gap-5">
   <form [formGroup]="addFrameworkForm" (submit)="addFrameworkReactive()">
-    <h2>Reactive</h2>
-    <ol>
-      <li>
+    <h2 class="text-2xl font-bold mb-3">Reactive</h2>
+    <ol class="grid grid-cols-[max-content,1fr] gap-2">
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-name">Naam:</label>
-        <input id="reactive-input-name" formControlName="name" />
+        <input id="reactive-input-name" class="input" formControlName="name" />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-rating">Rating:</label>
-        <input id="reactive-input-rating" type="number" formControlName="rating" />
+        <input id="reactive-input-rating" class="input" type="number" formControlName="rating" />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-logo-url">Logo URL:</label>
-        <input id="reactive-input-logo-url" formControlName="logoUrl" />
+        <input id="reactive-input-logo-url" class="input" formControlName="logoUrl" />
       </li>
-      <li><pre>{{addFrameworkForm.value | json}}</pre></li>
-      <li>valid: {{addFrameworkForm.valid}}</li>
-      <li><button>Voeg toe</button></li>
+      <li class="col-span-2">
+        <pre>{{ addFrameworkForm.value | json }}</pre>
+      </li>
+      <li class="col-span-2">valid: {{ addFrameworkForm.valid }}</li>
+      <li class="col-span-2"><button class="btn">Voeg toe</button></li>
     </ol>
   </form>
   <form (submit)="addFrameworkTemplate(templateForm)" #templateForm="ngForm">
-    <h2>Template-driven</h2>
-    <ol>
-      <li>
+    <h2 class="text-2xl font-bold mb-3">Template-driven</h2>
+    <ol class="grid grid-cols-[max-content,1fr] gap-2">
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="template-input-name">Naam:</label>
-        <input id="template-input-name" [(ngModel)]="newFramework.name" name="name" required pattern="^[a-zA-Z0-9]+$" />
+        <input
+          id="template-input-name"
+          class="input"
+          [(ngModel)]="newFramework.name"
+          name="name"
+          required
+          pattern="^[a-zA-Z0-9]+$"
+        />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="template-input-rating">Rating:</label>
-        <input id="template-input-rating" type="number" [(ngModel)]="newFramework.rating" name="rating"/>
+        <input
+          id="template-input-rating"
+          class="input"
+          type="number"
+          [(ngModel)]="newFramework.rating"
+          name="rating"
+        />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="template-input-logo-url">Logo URL:</label>
-        <input id="template-input-logo-url" [(ngModel)]="newFramework.logoUrl" name="logoUrl" />
+        <input
+          id="template-input-logo-url"
+          class="input"
+          [(ngModel)]="newFramework.logoUrl"
+          name="logoUrl"
+        />
       </li>
-      <li><pre>{{newFramework | json}}</pre></li>
-      <li>valid: {{templateForm.valid}}</li>
-      <li><button>Voeg toe</button></li>
+      <li class="col-span-2">
+        <pre>{{ newFramework | json }}</pre>
+      </li>
+      <li class="col-span-2">valid: {{ templateForm.valid }}</li>
+      <li class="col-span-2"><button class="btn">Voeg toe</button></li>
     </ol>
   </form>
   <form (submit)="addFrameworkSignal()">
-    <h2>Signal-based</h2>
-    <ol>
-      <li>
+    <h2 class="text-2xl font-bold mb-3">Signal-based</h2>
+    <ol class="grid grid-cols-[max-content,1fr] gap-2">
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-name">Naam:</label>
-        <input id="reactive-input-name" [formField]="addFrameworkDef.name" />
+        <input id="reactive-input-name" class="input" [formField]="addFrameworkDef.name" />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-rating">Rating:</label>
-        <input id="reactive-input-rating" type="number" [formField]="addFrameworkDef.rating" />
+        <input
+          id="reactive-input-rating"
+          class="input"
+          type="number"
+          [formField]="addFrameworkDef.rating"
+        />
       </li>
-      <li>
+      <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-logo-url">Logo URL:</label>
-        <input id="reactive-input-logo-url" [formField]="addFrameworkDef.logoUrl" />
+        <input id="reactive-input-logo-url" class="input" [formField]="addFrameworkDef.logoUrl" />
       </li>
-      <li><button>Voeg toe</button></li>
+      <li class="col-span-2"><button class="btn">Voeg toe</button></li>
     </ol>
   </form>
 </div>
-<hr>
+<hr />
 
 @if (!frameworks) {
   <p>Thinking... Regurgitating...</p>

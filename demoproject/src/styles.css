@@ -1,3 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@layer base {
+  .input {
+    @apply border-2 border-amber-400 p-2;
+  }
+  .input:focus {
+    @apply outline-none shadow-md shadow-amber-200 border-4;
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center
+           overflow-hidden rounded-full px-8 py-4
+           font-bold text-white uppercase tracking-wider
+           cursor-pointer select-none
+           transition-all duration-300 ease-out;
+
+    background: linear-gradient(
+      120deg,
+      #ff0080,
+      #ff8c00,
+      #ffe600,
+      #00db80,
+      #00bfff,
+      #8a2be2,
+      #ff0080
+    );
+
+    background-size: 300% 300%;
+    animation: rainbow 5s linear infinite;
+  }
+
+  .btn:hover {
+    @apply -translate-y-1 scale-105;
+
+    box-shadow:
+      0 0 15px #ff008088,
+      0 0 30px #8a2be288,
+      0 0 55px #00bfff66;
+
+    animation-duration: 1.5s;
+  }
+
+  .btn:active {
+    @apply translate-y-0 scale-95;
+  }
+
+  .btn:focus-visible {
+    @apply outline-4 outline-offset-4 outline-fuchsia-400;
+  }
+
+  @keyframes rainbow {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      animation: none;
+      transition: none;
+    }
+  }
+}
