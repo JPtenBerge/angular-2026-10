@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { form, FormField, pattern, required } from '@angular/forms/signals';
+import { form, FormField, max, min, pattern, required } from '@angular/forms/signals';
 import { createFramework } from './factories/framework.factory';
 import { Framework } from './entities/framework';
 
@@ -65,14 +65,20 @@ export class App {
       validators: [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)],
       nonNullable: true,
     }),
-    rating: new FormControl<number>(0, { nonNullable: true }),
+    rating: new FormControl<number>(0, {
+      validators: [Validators.required, Validators.min(1), Validators.max(10)],
+      nonNullable: true,
+    }),
     logoUrl: new FormControl<string>('', { nonNullable: true }),
   });
 
   addFrameworkValue = signal(createFramework());
   addFrameworkDef = form(this.addFrameworkValue, (p) => {
     required(p.name);
-    pattern(p.name, /^[a-zA-Z0-9]+$/);
+    pattern(p.name, /^[a-zA-Z0-9]*$/);
+    required(p.rating);
+    min(p.rating, 1);
+    max(p.rating, 10);
   });
 
   changeName() {

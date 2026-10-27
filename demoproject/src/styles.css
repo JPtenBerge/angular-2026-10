@@ -2,6 +2,10 @@
 
 @import 'tailwindcss';
 
+
+
+
+
 @layer base {
   .input {
     @apply border-2 border-amber-400 p-2;
@@ -51,6 +55,10 @@
     @apply outline-4 outline-offset-4 outline-fuchsia-400;
   }
 
+  .btn:disabled {
+    @apply border-4 border-red-500 cursor-not-allowed opacity-40;
+  }
+
   @keyframes rainbow {
     0%,
     100% {
@@ -67,4 +75,11 @@
       transition: none;
     }
   }
+}
+
+input.ng-touched.ng-invalid {
+    @apply border-2 border-red-600 bg-red-300;
+}
+input.ng-touched.ng-valid {
+    @apply border-2 border-green-600 bg-green-300;
 }

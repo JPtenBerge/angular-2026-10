@@ -9,7 +9,29 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
     <ol class="grid grid-cols-[max-content,1fr] gap-2">
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-name">Naam:</label>
-        <input id="reactive-input-name" class="input" formControlName="name" />
+        <div>
+          <input
+            placeholder="Vul hier je naam in"
+            id="reactive-input-name"
+            class="input"
+            formControlName="name"
+          />
+
+          <!-- <validator-message-for name="name" /> -->
+
+          @if (
+            addFrameworkForm.controls.name.touched &&
+            addFrameworkForm.controls.name.errors?.['required']
+          ) {
+            <p>Invullen graag</p>
+          }
+          @if (
+            addFrameworkForm.controls.name.touched &&
+            addFrameworkForm.controls.name.errors?.['pattern']
+          ) {
+            <p>Alleen letters en cijfers graag</p>
+          }
+        </div>
       </li>
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-rating">Rating:</label>
@@ -23,7 +45,9 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
         <pre>{{ addFrameworkForm.value | json }}</pre>
       </li>
       <li class="col-span-2">valid: {{ addFrameworkForm.valid }}</li>
-      <li class="col-span-2"><button class="btn">Voeg toe</button></li>
+      <li class="col-span-2">
+        <button class="btn" [disabled]="!addFrameworkForm.valid">Voeg toe</button>
+      </li>
     </ol>
   </form>
   <form (submit)="addFrameworkTemplate(templateForm)" #templateForm="ngForm">
@@ -31,14 +55,23 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
     <ol class="grid grid-cols-[max-content,1fr] gap-2">
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="template-input-name">Naam:</label>
-        <input
-          id="template-input-name"
-          class="input"
-          [(ngModel)]="newFramework.name"
-          name="name"
-          required
-          pattern="^[a-zA-Z0-9]+$"
-        />
+        <div>
+          <input
+            id="template-input-name"
+            class="input"
+            [(ngModel)]="newFramework.name"
+            name="name"
+            required
+            pattern="^[a-zA-Z0-9]+$"
+            #inputName="ngModel"
+          />
+          @if (inputName.touched && inputName.errors?.['required']) {
+            <p>Invullen graag</p>
+          }
+          @if (inputName.touched && inputName.errors?.['pattern']) {
+            <p>Alleen letters en cijfers graag</p>
+          }
+        </div>
       </li>
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="template-input-rating">Rating:</label>
@@ -48,6 +81,9 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
           type="number"
           [(ngModel)]="newFramework.rating"
           name="rating"
+          required
+          min="1"
+          max="10"
         />
       </li>
       <li class="grid grid-cols-subgrid col-span-2">
@@ -71,7 +107,19 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
     <ol class="grid grid-cols-[max-content,1fr] gap-2">
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-name">Naam:</label>
-        <input id="reactive-input-name" class="input" [formField]="addFrameworkDef.name" />
+        <div>
+          <input id="reactive-input-name" class="input" [formField]="addFrameworkDef.name"
+            [class.bg-red-400]="!addFrameworkDef.name().valid()"
+           />
+
+          @if (addFrameworkDef.name().touched() && addFrameworkDef.name().errors().some(x => x.kind === 'required')) {
+            <p>Invullen graag</p>
+          }
+          @if (addFrameworkDef.name().touched() && addFrameworkDef.name().errors().some(x => x.kind === 'pattern')) {
+            <p>Alleen letters en cijfers graag</p>
+          }
+          <!-- {{addFrameworkDef.name().errors() | json}} -->
+        </div>
       </li>
       <li class="grid grid-cols-subgrid col-span-2">
         <label for="reactive-input-rating">Rating:</label>
