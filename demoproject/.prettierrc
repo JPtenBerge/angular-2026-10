@@ -1,6 +1,9 @@
 {
-  "printWidth": 100,
+  "printWidth": 135,
   "singleQuote": true,
+  "arrowParens": "avoid",
+  "useTabs": true,
+  "tabWidth": 4,
   "overrides": [
     {
       "files": "*.html",
