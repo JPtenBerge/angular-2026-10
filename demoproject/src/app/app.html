@@ -2,6 +2,22 @@
 
 naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 <button class="border-2 bg-amber-400 p-3" (click)="changeName()">Verander naam</button>
+
+<hr />
+
+Autocompleter:
+
+<app-autocompleter [data]="frameworks" (select)="handleSelect($event)" />
+
+<hr>
+
+@if (showLife) {
+	<app-life message="hallo vanaf app!" />
+}
+<button class="btn" (click)="showLife = !showLife">Toggle life</button>
+
+
+
 <hr />
 <div class="flex gap-5">
 	<form [formGroup]="addFrameworkForm" (submit)="addFrameworkReactive()">
@@ -83,10 +99,10 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 				<pre>{{ newFramework | json }}</pre>
 			</li>
 			<li class="col-span-2">valid: {{ templateForm.valid }}</li>
-			<li class="col-span-2"><button class="btn">Voeg toe</button></li>
+			<li class="col-span-2"><button class="btn" [disabled]="!templateForm.valid">Voeg toe</button></li>
 		</ol>
 	</form>
-	<form (submit)="addFrameworkSignal()">
+	<form (submit)="addFrameworkSignal(); $event.preventDefault()">
 		<h2 class="text-2xl font-bold mb-3">Signal-based</h2>
 		<ol class="grid grid-cols-[max-content,1fr] gap-2">
 			<li class="grid grid-cols-subgrid col-span-2">
@@ -116,7 +132,7 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 				<label for="reactive-input-logo-url">Logo URL:</label>
 				<input id="reactive-input-logo-url" class="input" [formField]="addFrameworkDef.logoUrl" />
 			</li>
-			<li class="col-span-2"><button class="btn">Voeg toe</button></li>
+			<li class="col-span-2"><button class="btn" [disabled]="!addFrameworkDef().valid()">Voeg toe</button></li>
 		</ol>
 	</form>
 </div>

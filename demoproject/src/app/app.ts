@@ -7,21 +7,25 @@ import { ValidationMessage } from './components/validation-message/validation-me
 import { Framework } from './entities/framework';
 import { createFramework } from './factories/framework.factory';
 import { EuroPipe } from './pipes/euro.pipe';
+import { LifeComponent } from './components/life/life.component';
+import { Autocompleter } from './components/autocompleter/autocompleter';
 
 @Component({
 	imports: [
-		RouterOutlet,
-		ReactiveFormsModule,
-		FormsModule,
-		JsonPipe,
-		UpperCasePipe,
-		LowerCasePipe,
-		DatePipe,
-		CurrencyPipe,
-		EuroPipe,
-		FormField,
-		ValidationMessage,
-	],
+    RouterOutlet,
+    ReactiveFormsModule,
+    FormsModule,
+    JsonPipe,
+    UpperCasePipe,
+    LowerCasePipe,
+    DatePipe,
+    CurrencyPipe,
+    EuroPipe,
+    FormField,
+    ValidationMessage,
+    LifeComponent,
+    Autocompleter
+],
 	selector: 'app-root',
 	styleUrl: './app.css',
 	templateUrl: './app.html',
@@ -29,6 +33,7 @@ import { EuroPipe } from './pipes/euro.pipe';
 export class App {
 	naam = 'JP';
 	naamSignal = signal('JP');
+	showLife = false;
 
 	newFramework = createFramework();
 	frameworks: Framework[] = [
@@ -110,5 +115,9 @@ export class App {
 		this.frameworks.push(fullFramework);
 		this.addFrameworkValue.set(createFramework());
 		this.addFrameworkDef().reset();
+	}
+
+	handleSelect(framework: Framework) {
+		console.log('hey er is iets geselecteerd in de autocompleter', framework);
 	}
 }
