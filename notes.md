@@ -87,3 +87,41 @@ Qua tooling:
   - API lijkt heel erg op jasmine/jest
 
 Test runner: `ng test`. Tests runnen buiten dat commando om met bijv. een Vitest-extensie in VS Code werkt momenteel nog niet, hopelijk zeer snel wel.
+
+## Integratietesten
+
+- groter dan een unittest
+- afhankelijkheden meenemen in je test
+  - sommige zaken worden nog steeds gemockt, hangt even van de test af
+- unittest is zo klein mogelijk
+  - afhankelijkheden mock je weg
+  - andere classes
+  - database
+  - HTTP-request
+  - HTML rendereren
+    - wordt overigens vaak gewoon gezien als een unittest in frontendland
+
+Angular biedt standaard ondersteuning voor integratietesten:
+
+```ts
+let fixture = TestBed.createComponent(Autocompleter);
+let element = fixture.nativeElement.querySelector('.btn') as HTMLButtonElement;
+element.dispatchEvent(new CustomEvent('click'));
+```
+
+Maar:
+- minder elegant elementen querien, vooral heel veel `querySelector()`
+  - zelf overal aangeven wat je queriet voor enigszins type-safety
+- het is heel chirurgisch: met `dispatchEvent` kun je bijv. op gedisablede knoppen gewoon een `click`-event aftrappen
+  ```ts
+  let btn = document.querySelector('.btn');
+  btn.disabled = true;
+  btn.addEventListener('click', () => console.log('geklikt'));
+  btn.dispatchEvent(new CustomEvent('click'));
+  ```
+- weerspiegelt de realiteit van hoe de gebruiker met jouw pagina/component omgaat minder
+
+Pro tip: [Testing Library voor Angular](https://testing-library.com/docs/angular-testing-library) doet dat beter. Elementen op een accessible manier selecteren, minder chirurgisch events opgooien dankzij user-event, meer typesafety in de API dankzij de accessible roles van bijv. `screen.getByRole('...')`.
+
+
+Cool: Vitest doet standaard de DOM wegmocken met JSDom. Je kan ook Vitest's "browser mode" activeren en dat je Playwright's browser gebruikt om je integratietest in een echte browser met echte rendering te testen. => https://cookbook.marmicode.io/angular/testing/vitest-browser-mode
