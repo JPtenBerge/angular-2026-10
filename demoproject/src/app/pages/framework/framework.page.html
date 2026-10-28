@@ -1,0 +1,145 @@
+<div class="flex gap-5">
+	<form [formGroup]="addFrameworkForm" (submit)="addFrameworkReactive()">
+		<h2 class="text-2xl font-bold mb-3">Reactive</h2>
+		<ol class="grid grid-cols-[max-content,1fr] gap-2">
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-name">Naam:</label>
+				<div>
+					<input placeholder="Vul hier je naam in" id="reactive-input-name" class="input" formControlName="name" />
+
+					<!-- <validator-message-for name="name" /> -->
+
+					@if (addFrameworkForm.controls.name.touched && addFrameworkForm.controls.name.errors?.['required']) {
+						<p>Invullen graag</p>
+					}
+					@if (addFrameworkForm.controls.name.touched && addFrameworkForm.controls.name.errors?.['pattern']) {
+						<p>Alleen letters en cijfers graag</p>
+					}
+				</div>
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-rating">Rating:</label>
+				<input id="reactive-input-rating" class="input" type="number" formControlName="rating" />
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-logo-url">Logo URL:</label>
+				<input id="reactive-input-logo-url" class="input" formControlName="logoUrl" />
+			</li>
+			<li class="col-span-2">
+				<pre>{{ addFrameworkForm.value | json }}</pre>
+			</li>
+			<li class="col-span-2">valid: {{ addFrameworkForm.valid }}</li>
+			<li class="col-span-2">
+				<button class="btn" [disabled]="!addFrameworkForm.valid">Voeg toe</button>
+			</li>
+		</ol>
+	</form>
+	<form (submit)="addFrameworkTemplate(templateForm)" #templateForm="ngForm">
+		<h2 class="text-2xl font-bold mb-3">Template-driven</h2>
+		<ol class="grid grid-cols-[max-content,1fr] gap-2">
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="template-input-name">Naam:</label>
+				<div>
+					<input
+						id="template-input-name"
+						class="input"
+						[(ngModel)]="newFramework.name"
+						name="name"
+						required
+						pattern="^[a-zA-Z0-9]+$"
+						#inputName="ngModel"
+					/>
+					@if (inputName.touched && inputName.errors?.['required']) {
+						<p>Invullen graag</p>
+					}
+					@if (inputName.touched && inputName.errors?.['pattern']) {
+						<p>Alleen letters en cijfers graag</p>
+					}
+				</div>
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="template-input-rating">Rating:</label>
+				<input
+					id="template-input-rating"
+					class="input"
+					type="number"
+					[(ngModel)]="newFramework.rating"
+					name="rating"
+					required
+					min="1"
+					max="10"
+				/>
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="template-input-logo-url">Logo URL:</label>
+				<input id="template-input-logo-url" class="input" [(ngModel)]="newFramework.logoUrl" name="logoUrl" />
+			</li>
+			<li class="col-span-2">
+				<pre>{{ newFramework | json }}</pre>
+			</li>
+			<li class="col-span-2">valid: {{ templateForm.valid }}</li>
+			<li class="col-span-2"><button class="btn" [disabled]="!templateForm.valid">Voeg toe</button></li>
+		</ol>
+	</form>
+	<form (submit)="addFrameworkSignal(); $event.preventDefault()">
+		<h2 class="text-2xl font-bold mb-3">Signal-based</h2>
+		<ol class="grid grid-cols-[max-content,1fr] gap-2">
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-name">Naam:</label>
+				<div>
+					<input
+						id="reactive-input-name"
+						class="input"
+						[formField]="addFrameworkDef.name"
+						[class.bg-red-400]="addFrameworkDef.name().touched() && !addFrameworkDef.name().valid()"
+					/>
+					<app-validation-message
+						[field]="addFrameworkDef.name"
+						[customMessages]="{
+							required: 'Invullen graag',
+							pattern: 'Alleen letters en cijfers graag',
+						}"
+					/>
+				</div>
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-rating">Rating:</label>
+				<input id="reactive-input-rating" class="input" type="number" [formField]="addFrameworkDef.rating" />
+				<app-validation-message [field]="addFrameworkDef.rating" />
+			</li>
+			<li class="grid grid-cols-subgrid col-span-2">
+				<label for="reactive-input-logo-url">Logo URL:</label>
+				<input id="reactive-input-logo-url" class="input" [formField]="addFrameworkDef.logoUrl" />
+			</li>
+			<li class="col-span-2"><button class="btn" [disabled]="!addFrameworkDef().valid()">Voeg toe</button></li>
+		</ol>
+	</form>
+</div>
+<hr />
+
+@if (!frameworks()) {
+	<p>Thinking... Regurgitating...</p>
+} @else {
+	<table>
+		<thead>
+			<tr>
+				<th>Framework</th>
+				<th>Rating</th>
+				<th>Logo</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (framework of frameworks(); track framework.name) {
+				<tr
+					[class.bg-orange-500]="framework.rating < 5"
+					[class.border-4]="framework.rating < 5"
+					(mouseover)="framework.rating = framework.rating - 2"
+				>
+					<td>{{ framework.name | uppercase }}</td>
+					<td>{{ framework.rating }}</td>
+					<td><img src="{{ framework.logoUrl }}" class="max-w-20" /></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
