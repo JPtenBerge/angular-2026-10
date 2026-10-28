@@ -88,6 +88,71 @@ Qua tooling:
 
 Test runner: `ng test`. Tests runnen buiten dat commando om met bijv. een Vitest-extensie in VS Code werkt momenteel nog niet, hopelijk zeer snel wel.
 
+### Stryker
+
+- mutation testing
+- code muteren en dan alle testen op die gemuteerde versie van je broncode loslaten
+  - als het goed is, faalt er minimaal 1 test
+- het testen van je tests
+
+```ts
+if (bla < 'dkksdjhjksdhjkfsdhjksdfhjk') {}
+if (getal > 4) {}
+
+if (getal > 4000) {} // mutant die het overleeft
+```
+
+## Signals
+
+- React's `useState()`, maar dan mooi
+- haakt mooi op Angular's architectuur
+- reactivity primitive
+- voorbode om van zones af te gaan
+
+Angular modules worden de laatste jaren omgeschreven naar signal-varianten:
+- forms
+- `HttpClient`  `httpResource()`
+  - kleine note: `httpResource()` is momenteel enkel nog een signal-wrapper om `HttpClient`
+- Routing - moet nog.
+
+### Signals vs Observables
+
+- signals default keuze
+- zodra het te complex wordt: observables 
+  - bijv. wanneer je meerdere streams van data wil mergen
+
+
+
+## Forms
+
+Meerdere soorten forms!
+
+- Vanaf v2:
+  - Reactive
+    - template en formdefinitie gescheiden
+      - `.html` `<input formControlName="name">`
+      - `.ts`  `new FormGroup({ name: ... })`
+    - `[formGroup]`  `new FormGroup()` `FormBuilder`
+  - Template-driven
+    - meest eenvoudig
+    - alles in template, alles op 1 plek
+    - `<input [(ngModel)]="name">`  - banana in a box syntax
+      `<input [value]="name" (keydown)="name = event.value">`
+- v21+
+  - Signal-based
+
+## Components
+
+```ts
+// wat Angular doet
+let comp = new LifeComponent(); // triggert constructor
+comp.message = domelement.getAttribute('message');
+//...meer binding en init werk
+
+comp.ngOnInit();
+```
+
+
 ## Integratietesten
 
 - groter dan een unittest
@@ -125,3 +190,4 @@ Pro tip: [Testing Library voor Angular](https://testing-library.com/docs/angular
 
 
 Cool: Vitest doet standaard de DOM wegmocken met JSDom. Je kan ook Vitest's "browser mode" activeren en dat je Playwright's browser gebruikt om je integratietest in een echte browser met echte rendering te testen. => https://cookbook.marmicode.io/angular/testing/vitest-browser-mode
+
