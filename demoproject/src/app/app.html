@@ -1,12 +1,17 @@
-
-<nav>
-	<ol>
-		<li><a routerLink="/frameworks">Frameworks</a></li>
-		<li><a routerLink="/dump">Dump</a></li>
-		<li><a routerLink=""></a></li>
-		<li><a routerLink=""></a></li>
-	</ol>
-</nav>
-
+<header class="flex gap-10 items-center">
+	<h1 class="text-4xl font-bold">Demo-app</h1>
+	<nav>
+		<ol class="flex gap-3 p-3 border-b-purple-400 border-b-2">
+			<li>
+				<a class="p-2 transition-all bg-pink-700 block hover:bg-pink-950 rounded-lg" routerLink="/frameworks">Frameworks</a>
+			</li>
+			<li><a class="p-2 transition-all bg-pink-700 block hover:bg-pink-950 rounded-lg" routerLink="/dump">Dump</a></li>
+			<li><a class="p-2 transition-all bg-pink-700 block hover:bg-pink-950 rounded-lg" routerLink=""></a></li>
+			<li><a class="p-2 transition-all bg-pink-700 block hover:bg-pink-950 rounded-lg" routerLink=""></a></li>
+		</ol>
+	</nav>
+</header>
 
 <router-outlet />
+
+<footer class="bg-gray-400 mt-3 p-2 pt-6 text-right">&copy; JP 2026</footer>
