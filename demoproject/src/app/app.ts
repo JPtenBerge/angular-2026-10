@@ -1,15 +1,14 @@
-import { CurrencyPipe, DatePipe, JsonPipe, LowerCasePipe, UpperCasePipe } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { JsonPipe, UpperCasePipe } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { form, FormField, max, min, pattern, required } from '@angular/forms/signals';
 import { RouterOutlet } from '@angular/router';
+import { Autocompleter } from './components/autocompleter/autocompleter';
+import { LifeComponent } from './components/life/life.component';
 import { ValidationMessage } from './components/validation-message/validation-message';
+import { FrameworkDal } from './dal/framework.dal';
 import { Framework } from './entities/framework';
 import { createFramework } from './factories/framework.factory';
-import { EuroPipe } from './pipes/euro.pipe';
-import { LifeComponent } from './components/life/life.component';
-import { Autocompleter } from './components/autocompleter/autocompleter';
-import { HttpClient, httpResource } from '@angular/common/http';
 
 @Component({
 	imports: [
@@ -18,10 +17,6 @@ import { HttpClient, httpResource } from '@angular/common/http';
 		FormsModule,
 		JsonPipe,
 		UpperCasePipe,
-		LowerCasePipe,
-		DatePipe,
-		CurrencyPipe,
-		EuroPipe,
 		FormField,
 		ValidationMessage,
 		LifeComponent,
@@ -31,17 +26,15 @@ import { HttpClient, httpResource } from '@angular/common/http';
 	styleUrl: './app.css',
 	templateUrl: './app.html',
 })
-export class App {
+export class App implements OnInit {
+	private readonly frameworkDal = inject(FrameworkDal);
+
 	naam = 'JP';
 	naamSignal = signal('JP');
 	showLife = false;
 
-	http = inject(HttpClient);
-
 	newFramework = createFramework();
-	// frameworks: Framework[];
-
-	frameworks = httpResource<Framework[]>(() => `http://localhost:3000/frameworks`);
+	frameworks = signal<Framework[] | null>(null);
 
 	addFrameworkForm = new FormGroup({
 		name: new FormControl<string>('', {
@@ -64,6 +57,10 @@ export class App {
 		max(p.rating, 10);
 	});
 
+	ngOnInit() {
+		this.frameworkDal.getAll().then(contacts => this.frameworks.set(contacts));
+	}
+
 	changeName() {
 		setTimeout(() => {
 			this.naamSignal.update(currentValue => `${currentValue} Marnix`);
@@ -76,29 +73,18 @@ export class App {
 			id: 4,
 			...this.addFrameworkForm.getRawValue(),
 		};
-		// this.frameworks.push(fullFramework);
+		this.frameworkDal.create(fullFramework);
 		this.addFrameworkForm.reset();
 	}
 
 	addFrameworkTemplate(form: NgForm) {
-		// newFramework clonen
-		// let clone = JSON.parse(JSON.stringify(this.newFramework)); // voor simpele objecten (wat door JSON ondersteund wordt, geen bigints/functies/DOM-objecten)
-		// let clone2 = { ...this.newFramework }; // voor simpele objecten / shallow copy
-		let besteClone = structuredClone(this.newFramework);
-
-		// this.frameworks.push(besteClone);
+		let fullFramework = structuredClone(this.newFramework);
+		this.frameworkDal.create(fullFramework);
 		form.reset();
 	}
 
 	addFrameworkSignal() {
-		let fullFramework: Framework = {
-			// id: 4,
-			...this.addFrameworkValue(),
-		};
-
-		this.http.post('http://localhost:3000/frameworks', fullFramework).subscribe();
-
-		// this.frameworks.push(fullFramework);
+		this.frameworkDal.create(this.addFrameworkValue());
 		this.addFrameworkValue.set(createFramework());
 		this.addFrameworkDef().reset();
 	}

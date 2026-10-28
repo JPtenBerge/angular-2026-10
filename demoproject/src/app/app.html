@@ -7,10 +7,10 @@ naam / naamSignal: {{ naam }} / {{ naamSignal() }}
 
 Autocompleter:
 
-@if (!frameworks.hasValue()) {
+@if (!frameworks()) {
 	<p>Loading frameworks!</p>
 } @else {
-	<app-autocompleter [data]="frameworks.value()" (select)="handleSelect($event)" />
+	<app-autocompleter [data]="frameworks()!" (select)="handleSelect($event)" />
 }
 
 <hr />
@@ -140,7 +140,7 @@ Autocompleter:
 </div>
 <hr />
 
-@if (!frameworks) {
+@if (!frameworks()) {
 	<p>Thinking... Regurgitating...</p>
 } @else {
 	<table>
@@ -152,7 +152,7 @@ Autocompleter:
 			</tr>
 		</thead>
 		<tbody>
-			@for (framework of frameworks.value(); track framework.name) {
+			@for (framework of frameworks(); track framework.name) {
 				<tr
 					[class.bg-orange-500]="framework.rating < 5"
 					[class.border-4]="framework.rating < 5"

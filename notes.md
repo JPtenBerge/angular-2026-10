@@ -191,3 +191,14 @@ Pro tip: [Testing Library voor Angular](https://testing-library.com/docs/angular
 
 Cool: Vitest doet standaard de DOM wegmocken met JSDom. Je kan ook Vitest's "browser mode" activeren en dat je Playwright's browser gebruikt om je integratietest in een echte browser met echte rendering te testen. => https://cookbook.marmicode.io/angular/testing/vitest-browser-mode
 
+
+
+## Overig
+
+### Object clonen in JavaScript
+
+```ts
+let clone1 = JSON.parse(JSON.stringify(this.newFramework)); // voor simpele objecten (wat door JSON ondersteund wordt, geen bigints/functies/DOM-objecten)
+let clone2 = { ...this.newFramework }; // voor simpele objecten, let wel: dit maakt een shallow copy (nested objecten/arrays worden by reference overgenomen)
+let besteClone = structuredClone(this.newFramework);
+```
