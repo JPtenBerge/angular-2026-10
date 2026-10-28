@@ -1,5 +1,42 @@
 # Notes
 
+## Paradigmas der webapplicaties
+
+- **SPA - Single Page Application**
+  - geen/heel weinig volledige paginarefreshes
+  - content wordt vervangen met andere content
+  - veel XHR/fetch/API calls naar backend
+  - libs/frameworks: Angular Vue React Svelte Solid Qwik Lit Blazor
+  - nadeel: SEO. bij een pure SPA ontvangt de browser in eerste instantie een kale, lege pagina met daarop wat JavaScript-scriptjes
+    - bundle size - .js  Blazor 7MB "hello world"
+  - hoog niveau van interactie/gebruiksvriendelijkheid
+  - hip leuk
+- **SSR - Server-side rendering**
+  - altijd complementair aan de SPA
+    - om de SEO te verbeteren.
+    - om sneller de eerste pagina te tonen richting de gebruiker
+  - de initiele pagina die men bezoekt wordt op de server gerenderd
+    - op de achtergrond moet dan nog even al die .js scriptjes moeten nog worden opgestuurd
+      => hydration. streaming hydration  progressive hydration
+  - libs/frameworks: Next.js (React)  Nuxt.js (Vue)  @angular/ssr  ASP.NET Core  QwikCity SolidStart SvelteKit  htmx
+  - complexiteit++
+  - hip leuk
+- **SSG - static site generator**
+  - vooraf heul veul pagina's genereren
+  - bol.com / wehkamp / amazon
+    /product/375723848 => API product => database => template renderen met productinfo
+    - pipeline   .html-bestandjes
+  - libs/frameworks: Astro Gatsby Eleventy Next.js @angular/ssr
+  - hip leuk
+- **MPA - Multi Page Application**
+  - content wordt op de server gerenderd
+    - goed voor SEO
+  - heel veel hyperlinkjes naar andere pagina's
+    - soms complete form submits
+  - heel veel full-pagina refreshes
+  - libs/frameworks/platformen: ASP.NET WebForms/MVC/Core PHP Java Spring
+  - niet hip
+
 ## Waarom Angular?
 
 - blijft ongeveer hetzelfde
@@ -212,6 +249,57 @@ Cool: Vitest doet standaard de DOM wegmocken met JSDom. Je kan ook Vitest's "bro
   - store pattern
 
 Maak een ContactService die de lijst van contacten bijhoudt en bijwerkt. Deze service injecteren bij zowel form als list en laten werken.
+
+## Routing
+
+SPA
+
+1. alle templates van alle pagina's gewoon inladen in de DOM
+    ```html
+    <div id="page1" hidden>...</div>
+    <div id="page2" hidden>...</div>
+    <div id="page29">...</div>
+    <div id="page45" hidden>...</div>
+    <div id="page46" hidden>...</div>
+    ```
+2. alle templates van alle pagina's gewoon inladen in-memory
+    ```ts
+    let page1 = `...`;
+    let page2 = `...`;
+    let page3 = `...`;
+    // ...
+    let page61 = `...`;
+    let page62 = `...`;
+    let page63 = `...`;
+    ```
+3. paginatemplates ophalen wanneer de gebruiker ze wil bezoeken - "lazy loading"
+
+
+
+
+stappenplan:
+
+1. routes  "product/{id}" => ProductDetailsComponent
+2. <router-outlet /> => waar iedere pagina z'n template in wordt gedumpt
+3. alle content opsplitsen in pagina's
+4. navigatiemenuutje maken
+
+
+
+
+
+
+
+Router:
+
+- basic routing
+- parameters  /frameworks/:id
+- guards: afschermen van pagina's
+- children
+- resolvers
+- GEEN SIGNALS
+
+
 
 ## Overig
 
