@@ -191,7 +191,27 @@ Pro tip: [Testing Library voor Angular](https://testing-library.com/docs/angular
 
 Cool: Vitest doet standaard de DOM wegmocken met JSDom. Je kan ook Vitest's "browser mode" activeren en dat je Playwright's browser gebruikt om je integratietest in een echte browser met echte rendering te testen. => https://cookbook.marmicode.io/angular/testing/vitest-browser-mode
 
+## Dependency injection
 
+- een vorm van Inversion of Control
+- het makkelijk kunnen injecteren van afhankelijkheden
+- zodat je niet [                                    ] zo'n class hebt
+- herbruikbaarheid
+- flexibiliteit om andere implementaties erin te kunnen schuiven
+- "low coupling, high cohesion"
+- testbaarheid
+  - mocken met name
+
+### Wat voor services kun je zoal maken?
+
+- DAL voor API calls
+- businesslogica
+- helper functions
+- "code wegzetten"
+- state bijhouden
+  - store pattern
+
+Maak een ContactService die de lijst van contacten bijhoudt en bijwerkt. Deze service injecteren bij zowel form als list en laten werken.
 
 ## Overig
 
