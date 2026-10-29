@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, Service, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -24,11 +24,21 @@ export class ReactivePage implements OnInit {
 	subscription!: Subscription;
 	destroyRef = inject(DestroyRef);
 	cdr = inject(ChangeDetectorRef);
+	magicService = inject(MagicService);
+
 	// values: number[] = [];
 	values = signal<number[]>([]);
 
 	autocomplete() {
 		console.log('autocompleting met query:', this.query.value);
+	}
+
+	magicNumbers: number[] = [];
+	doMagic() {
+		this.magicService
+			.giveMagicNumbers()
+			.pipe(map(x => x * 20))
+			.subscribe(x => this.magicNumbers.push(x));
 	}
 
 	// ngOnDestroy() {
@@ -53,7 +63,7 @@ export class ReactivePage implements OnInit {
 
 		console.log('hallo oninit');
 
-		let source = new BehaviorSubject(108);
+		let source = new ReplaySubject<number>();
 
 		// 3 subjects:
 		// Subject<T>
@@ -77,5 +87,16 @@ export class ReactivePage implements OnInit {
 			source.next(42);
 			// this.cdr.markForCheck();
 		}, 2000);
+	}
+}
+
+@Service()
+export class MagicService {
+	giveMagicNumbers() {
+		let source = new ReplaySubject<number>();
+		source.next(4);
+		source.next(8);
+		source.next(15);
+		return source.asObservable();
 	}
 }

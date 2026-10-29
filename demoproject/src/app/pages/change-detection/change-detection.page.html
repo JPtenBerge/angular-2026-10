@@ -1,0 +1,13 @@
+<p>change-detection works!</p>
+
+<button class="btn" (click)="addCar()">Add car vanaf page</button>
+
+<div class="flex gap-3">
+	<ul>
+		@for (car of cars; track $index) {
+			<li>{{ car.make }} {{ car.model }}</li>
+		}
+	</ul>
+
+	<app-car-viewer [cars]="cars" />
+</div>
