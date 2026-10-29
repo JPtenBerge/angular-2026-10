@@ -301,7 +301,38 @@ Verder, de router qua features:
 5. principes: geen `.subscribe()` in component (`| async` gebruiken), opruimen met `takeUntilDestroyed()` en `DestroyRef`
 6. advanced operators en meerdere observables met elkaar mengen: `switchMap`, `mergeMap`, `iif`
 
+## Hoe ververs ik mijn lijstje?
+
+1. gewoon alles weer ophalen
+   - traagste
+   - wacht de POST af, daarna moet je een nieuwe GET afwachten
+   - maximaal de server belasten
+   - qua implementatie vaak het makkelijkst - `getAll()`
+   - meest in sync met server
+2. meteen toevoegen aan in-memory lijstje
+   - geen id
+   - kan heel gebruiksvriendelijk zijn. kost moeite.
+   - heerlijk snel.
+   - optimistic UI
+3. respons van je POST gebruiken
+   - redelijk in sync met server
+   - redelijk snel
+   - belast je server iets minder
+
+Store pattern kan hier bij helpen. Meer nodig? State management library:
+
+- ngrx
+- ngxs
+
 ## Overig
+
+- [RxMarbles](https://rxmarbles.com/), leuke visualisatie van RxJS operators
+- [](https://softwaremill.com/learn-reactive-programming-with-rx-playground/)
+- [ngx-oneforall](https://www.npmjs.com/package/ngx-oneforall), veel utilities, paar coole signals/services/validators.
+  - heel weinig downloads, wellicht gewoon de broncode overnemen in je project ipv project als dependency opnemen
+- [@signals-toolkit/core](https://dev.to/piipe800/i-built-a-utility-library-for-angular-signals-heres-what-i-learned-28e)
+  - zelfde als hierboven, ook heel weinig downloads. Maar die `signalStorage()` klinkt mij bijv. als erg nuttig
+
 
 ### Object clonen in JavaScript
 
