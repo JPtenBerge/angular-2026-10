@@ -25,9 +25,7 @@ export class Autocompleter<T extends {}> {
 		for (let item of this.data()) {
 			let keys = Object.keys(item) as (keyof T)[];
 
-			for (let prop of keys) {
-				if (typeof item[prop] !== 'string') continue;
-
+			for (let prop of keys.filter(x => typeof item[x] === 'string')) {
 				let value = item[prop] as string;
 				if (value.includes(this.query())) {
 					this.suggestions.push(item);
