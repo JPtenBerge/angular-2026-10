@@ -1,3 +1,9 @@
 <p>reactive works!</p>
 
 <input class="input" [formControl]="query">
+
+<ul>
+    @for (value of values(); track $index) {
+        <li>{{value}}</li>
+    }
+</ul>
