@@ -292,6 +292,46 @@ Verder, de router qua features:
 
 ## Observables
 
+- functioneel
+- event-driven
+- uit een library: RxJS
+  - Observables
+
+Observable?
+- moeilijke signal
+- wrapper met metadatadingetjes
+- je kunt .subscribe()
+- pipen <== functioneel
+- HttpClient gebruikt ze
+- iets lastiger te testen
+
+### Promises vs Observables vs Signals
+
+- promises hebben altijd 1 resultaat - data
+  - ideaal HTTP-request
+  - eager   new Promse(() => {})
+- observable is meer voor stream van data
+  - ideaal WebSocket
+  - heeft wel de optie om ooit van HTTP over te gaan naar WebSocket
+  - deze gebruikten ze al op een hoop andere plekken
+  - lazy   new Observable()   this.http.post('...', data).subscribe()
+- signal
+  - ook voor stream data
+  - ideaal voor WebSocket
+  - geintegreerd bij Angular / change detection
+  - klassiek procedureel programmeren
+    - if-statements, for-loops, 
+
+```ts
+computed(() => {
+	if (andereSignal() > 5) {
+		return 14;
+	}
+
+	return 289;
+});
+```
+
 ### Levels Observables begrijpen
 
 1. Observables, `.subscribe()`, verschillende subjects, reactivity flow snappen
@@ -323,6 +363,7 @@ Store pattern kan hier bij helpen. Meer nodig? State management library:
 
 - ngrx
 - ngxs
+
 
 ## Overig
 
