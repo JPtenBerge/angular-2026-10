@@ -333,6 +333,33 @@ Store pattern kan hier bij helpen. Meer nodig? State management library:
 - [@signals-toolkit/core](https://dev.to/piipe800/i-built-a-utility-library-for-angular-signals-heres-what-i-learned-28e)
   - zelfde als hierboven, ook heel weinig downloads. Maar die `signalStorage()` klinkt mij bijv. als erg nuttig
 
+### Playwright vs Cypress
+
+Playwright:
+
+- gratis / open source
+- TypeScript volledig hand-in-hand
+- chromium webkit firefox
+- echte promises
+- awaiten
+- debugger
+- fraaie UI mode `playwright test --ui`
+
+Cypress:
+
+- minder gratis / open source
+- cy.get('https://mijndomein.nl')
+- architectuur
+  - hoeveel rijen heb ik nu in de tabel? => 3
+  - form invullen [submit]
+  - expect(aantalrijen).toBe(wathetnetwas + 1)
+- Promises
+  - await
+- cy.get('element').should('haveq.text', 'Hoi')
+- TypeScript ondersteuning is mwoa   .d.ts
+- vroegah enkel Chromium
+- hun testrunner met tijdreizen door de state van de UI is mooi
+  - maar ook dat heeft Playwright inmiddels
 
 ### Object clonen in JavaScript
 
