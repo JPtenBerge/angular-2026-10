@@ -119,7 +119,7 @@
 </div>
 <hr />
 
-@if (!frameworks()) {
+@if (!frameworkStore.frameworks()) {
 	<p>Thinking... Regurgitating...</p>
 } @else {
 	<table>
@@ -131,7 +131,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@for (framework of frameworks(); track framework.name) {
+			@for (framework of frameworkStore.frameworks(); track framework.name) {
 				<tr
 					[class.bg-orange-500]="framework.rating < 5"
 					[class.border-4]="framework.rating < 5"

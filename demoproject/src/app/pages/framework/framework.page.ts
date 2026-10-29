@@ -6,6 +6,7 @@ import { ValidationMessage } from '../../components/validation-message/validatio
 import { FrameworkDal } from '../../dal/framework.dal';
 import { Framework } from '../../entities/framework';
 import { createFramework } from '../../factories/framework.factory';
+import { FrameworkStore } from '../../stores/framework.store';
 
 @Component({
 	imports: [ReactiveFormsModule, FormsModule, JsonPipe, UpperCasePipe, FormField, ValidationMessage],
@@ -13,10 +14,9 @@ import { createFramework } from '../../factories/framework.factory';
 	templateUrl: './framework.page.html',
 })
 export class FrameworkPage {
-	private readonly frameworkDal = inject(FrameworkDal);
+	readonly frameworkStore = inject(FrameworkStore);
 
 	newFramework = createFramework();
-	frameworks = signal<Framework[] | null>(null);
 
 	addFrameworkForm = new FormGroup({
 		name: new FormControl<string>('', {
@@ -39,27 +39,23 @@ export class FrameworkPage {
 		max(p.rating, 10);
 	});
 
-	ngOnInit() {
-		this.frameworkDal.getAll().then(contacts => this.frameworks.set(contacts));
-	}
-
 	addFrameworkReactive() {
 		let fullFramework: Framework = {
 			id: 4,
 			...this.addFrameworkForm.getRawValue(),
 		};
-		this.frameworkDal.create(fullFramework);
+		this.frameworkStore.add(fullFramework);
 		this.addFrameworkForm.reset();
 	}
 
 	addFrameworkTemplate(form: NgForm) {
 		let fullFramework = structuredClone(this.newFramework);
-		this.frameworkDal.create(fullFramework);
+		this.frameworkStore.add(fullFramework);
 		form.reset();
 	}
 
 	addFrameworkSignal() {
-		this.frameworkDal.create(this.addFrameworkValue());
+		this.frameworkStore.add(this.addFrameworkValue());
 		this.addFrameworkValue.set(createFramework());
 		this.addFrameworkDef().reset();
 	}
