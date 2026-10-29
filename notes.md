@@ -274,32 +274,32 @@ SPA
     ```
 3. paginatemplates ophalen wanneer de gebruiker ze wil bezoeken - "lazy loading"
 
+Stappenplan routing doorvoeren:
 
-
-
-stappenplan:
-
-1. routes  "product/{id}" => ProductDetailsComponent
-2. <router-outlet /> => waar iedere pagina z'n template in wordt gedumpt
+1. routes  `"product/{id}"` => `ProductDetailsComponent`
+2. `<router-outlet />` => waar iedere pagina z'n template in wordt gedumpt
 3. alle content opsplitsen in pagina's
 4. navigatiemenuutje maken
 
-
-
-
-
-
-
-Router:
+Verder, de router qua features:
 
 - basic routing
-- parameters  /frameworks/:id
+- parameters  `/frameworks/:id`
 - guards: afschermen van pagina's
 - children
 - resolvers
-- GEEN SIGNALS
+- let op: momenteel nog GEEN SIGNALS
 
+## Observables
 
+### Levels Observables begrijpen
+
+1. Observables, `.subscribe()`, verschillende subjects, reactivity flow snappen
+2. basic veelgebruikte operators: `map`, `filter`, `debounceTime`, `skip`/`take`/`first`/`last`/`min`/`max`/`count`
+3. unittesten met observables: `of()`
+4. samenwerken/synchronizeren/"wanneer wat" met promises/signals  `toSignal()`, `lastValueFrom()`
+5. principes: geen `.subscribe()` in component (`| async` gebruiken), opruimen met `takeUntilDestroyed()` en `DestroyRef`
+6. advanced operators en meerdere observables met elkaar mengen: `switchMap`, `mergeMap`, `iif`
 
 ## Overig
 

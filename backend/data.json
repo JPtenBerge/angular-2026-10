@@ -1,22 +1,46 @@
 {
-    "frameworks": [
-        {
-            "id": 4,
-            "name": "Svelte vanaf backend",
-            "rating": 9.5,
-            "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F1b%2FSvelte_Logo.svg%2F1280px-Svelte_Logo.svg.png&f=1&nofb=1&ipt=ad20d0c31bd8cdb5f363043859681163256767df93d12826839509afaeb6db6f&ipo=images"
-        },
-        {
-            "id": 8,
-            "name": "Angular",
-            "rating": 8.5,
-            "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gilsys.com%2F_astro%2Fangular-logo.CvhGd5ym.png&f=1&nofb=1&ipt=16b0619389fc96cf6db8e2d02bec3f7ff6df3905d05ee91cb9fb225b25567f64&ipo=images"
-        },
-        {
-            "id": 15,
-            "name": "React",
-            "rating": 4,
-            "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.freebiesupply.com%2Flogos%2Flarge%2F2x%2Freact-1-logo-png-transparent.png&f=1&nofb=1&ipt=8d8e4658ad2daa4de20ef33b1965a63a5ce192bc934e5fbe5661a3f33bc811f6&ipo=images"
-        }
-    ]
+  "frameworks": [
+    {
+      "id": 4,
+      "name": "Svelte vanaf backend",
+      "rating": 9.5,
+      "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F1%2F1b%2FSvelte_Logo.svg%2F1280px-Svelte_Logo.svg.png&f=1&nofb=1&ipt=ad20d0c31bd8cdb5f363043859681163256767df93d12826839509afaeb6db6f&ipo=images"
+    },
+    {
+      "id": 8,
+      "name": "Angular",
+      "rating": 8.5,
+      "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gilsys.com%2F_astro%2Fangular-logo.CvhGd5ym.png&f=1&nofb=1&ipt=16b0619389fc96cf6db8e2d02bec3f7ff6df3905d05ee91cb9fb225b25567f64&ipo=images"
+    },
+    {
+      "id": 15,
+      "name": "React",
+      "rating": 4,
+      "logoUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.freebiesupply.com%2Flogos%2Flarge%2F2x%2Freact-1-logo-png-transparent.png&f=1&nofb=1&ipt=8d8e4658ad2daa4de20ef33b1965a63a5ce192bc934e5fbe5661a3f33bc811f6&ipo=images"
+    },
+    {
+      "id": 16,
+      "name": "qq",
+      "rating": 4,
+      "logoUrl": "dfdf"
+    },
+    {
+      "id": 17,
+      "name": "ee",
+      "rating": 4,
+      "logoUrl": ""
+    },
+    {
+      "id": 18,
+      "name": "qwert",
+      "rating": 7,
+      "logoUrl": ""
+    },
+    {
+      "id": 19,
+      "name": "Hatseflats",
+      "rating": 9,
+      "logoUrl": ""
+    }
+  ]
 }
